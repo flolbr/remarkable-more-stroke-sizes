@@ -71,6 +71,20 @@ Thickness `100` is intentionally absent from the 3.24 artifact after a
 perceived UI hang and an `unhandled thickness 100` stock-journal warning. It
 passed the full test matrix on 3.27.1.0.
 
+## Labels and localization
+
+The 3.27.1.0 artifact appends the numeric thickness to every label and has
+project-owned label tables for English, French, German, and Spanish. Those
+four languages were checked on a physical reMarkable 2 for non-blank labels,
+menu usability, selection, and drawing. English is the fallback for other
+languages.
+
+Language selection reuses the exact stock translation context and the stock
+translation of `Thin` as a marker. The extension does not infer language from
+`Qt.locale()`, which remained `en_US` while the device UI was French during
+testing, and it does not instantiate xochitl's `LanguageSettings` QML type.
+See [`evidence/3.27-localization.md`](evidence/3.27-localization.md).
+
 AppLoad, KOReader, LAMY-button mappings, split-screen extensions, and other
 third-party-mod coexistence are not claimed for the 3.27.1.0 artifact.
 

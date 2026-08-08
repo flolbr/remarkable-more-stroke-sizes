@@ -7,3 +7,5 @@
 - Add the `translationContext()` model method required for labels on 3.27.1.0.
 - Record physical menu, drawing, restart, reboot, removal, and reinstall tests.
 - Add the locally validated Vellum package definition and package test summary.
+- Add physically tested English, French, German, and Spanish labels with the
+  numeric thickness appended and English fallback for other languages.

@@ -17,57 +17,113 @@ AFFECT /qml/common/Values.qml
         LOCATE BEFORE ALL
         INSERT {
             property var mPenThicknessModel: {
+                const stockContext = 'xofm::libs::toolbar::PenThicknessModel';
+                const stockThin = qsTranslate(stockContext, 'Thin');
+                const language = stockThin === 'Fin'
+                    ? 'fr'
+                    : stockThin === 'Schmal'
+                        ? 'de'
+                        : stockThin === 'Fino'
+                            ? 'es'
+                            : 'en';
+                const labelsByLanguage = {
+                    en: [
+                        'Thinner (0.5)',
+                        'Thin (1)',
+                        'Medium Thin (1.5)',
+                        'Medium (2)',
+                        'Medium Thick (2.5)',
+                        'Thick (3)',
+                        'Thicker (5)',
+                        'Even Thicker (8)',
+                        "Can't Go Thicker (100)",
+                    ],
+                    fr: [
+                        'Plus fin (0.5)',
+                        'Fin (1)',
+                        'Moyen-fin (1.5)',
+                        'Moyen (2)',
+                        'Moyen-épais (2.5)',
+                        'Épais (3)',
+                        'Plus épais (5)',
+                        'Très épais (8)',
+                        'Pas plus épais ! (100)',
+                    ],
+                    de: [
+                        'Dünner (0.5)',
+                        'Dünn (1)',
+                        'Mitteldünn (1.5)',
+                        'Mittel (2)',
+                        'Mitteldick (2.5)',
+                        'Dick (3)',
+                        'Dicker (5)',
+                        'Sehr dick (8)',
+                        "Dicker geht's nicht (100)",
+                    ],
+                    es: [
+                        'Más fino (0.5)',
+                        'Fino (1)',
+                        'Medio fino (1.5)',
+                        'Medio (2)',
+                        'Medio grueso (2.5)',
+                        'Grueso (3)',
+                        'Más grueso (5)',
+                        'Muy grueso (8)',
+                        '¡No puede ser más grueso! (100)',
+                    ],
+                };
+                const labels = labelsByLanguage[language] ?? labelsByLanguage.en;
                 const iterable = [
                     {
                         iconPath: 'qrc:/ark/icons/stroke_thin',
                         thickness: 0.5,
-                        displayName: 'Thinner',
+                        displayName: labels[0],
                     },
                     {
                         iconPath: 'qrc:/ark/icons/stroke_thin',
                         thickness: 1,
-                        displayName: 'Thin',
+                        displayName: labels[1],
                     },
                     {
                         iconPath: 'qrc:/ark/icons/stroke_medium',
                         thickness: 1.5,
-                        displayName: 'Medium Thin',
+                        displayName: labels[2],
                     },
                     {
                         iconPath: 'qrc:/ark/icons/stroke_medium',
                         thickness: 2,
-                        displayName: 'Medium',
+                        displayName: labels[3],
                     },
                     {
                         iconPath: 'qrc:/ark/icons/stroke_medium',
                         thickness: 2.5,
-                        displayName: 'Medium Thick',
+                        displayName: labels[4],
                     },
                     {
                         iconPath: 'qrc:/ark/icons/stroke_thick',
                         thickness: 3,
-                        displayName: 'Thick',
+                        displayName: labels[5],
                     },
                     {
                         iconPath: 'qrc:/ark/icons/stroke_thick',
                         thickness: 5,
-                        displayName: 'Thicker',
+                        displayName: labels[6],
                     },
                     {
                         iconPath: 'qrc:/ark/icons/stroke_thick',
                         thickness: 8,
-                        displayName: 'Even Thicker',
+                        displayName: labels[7],
                     },
                     {
                         iconPath: 'qrc:/ark/icons/stroke_thick',
                         thickness: 100,
-                        displayName: "Can't Go Thicker",
+                        displayName: labels[8],
                     },
                 ];
                 iterable.isValidThickness = () => true;
                 iterable.nameForThickness = e => iterable.find(z => z.thickness === e)?.displayName ?? '';
                 iterable.iconForThickness = e => iterable.find(z => z.thickness === e)?.iconPath ?? '';
-                iterable.translationContext = () => 'PenThicknessModel';
+                iterable.translationContext = () => 'MoreStrokeSizes';
                 iterable.thicknessAt = e => iterable[e].thickness;
                 iterable.defaultThickness = () => iterable[1];
                 return iterable;
