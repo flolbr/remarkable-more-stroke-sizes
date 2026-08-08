@@ -1,0 +1,12 @@
+backups/
+firmware/
+private-artifacts/
+hashtab*
+SECRETS_LOCAL.md
+.secrets/
+*.signed
+*.swu
+*.img
+*.ext4
+*.log
+*.log.private

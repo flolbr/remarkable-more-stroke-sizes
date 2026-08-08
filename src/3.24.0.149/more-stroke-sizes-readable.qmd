@@ -1,0 +1,105 @@
+VERSION 3.24.0.149
+
+AFFECT /qt/qml/xofm/libs/toolbar/qml/Toolbar.qml
+    TRAVERSE FocusScope
+        REPLACE penThicknessSelected WITH {
+            signal penThicknessSelected(thickness : var)
+        }
+        REPLACE eraserThicknessSelected WITH {
+            signal eraserThicknessSelected(thickness : var)
+        }
+    END TRAVERSE
+END AFFECT
+
+AFFECT /qml/common/Values.qml
+    IMPORT xofm.libs.toolbar 1.0
+    TRAVERSE Item
+        LOCATE BEFORE ALL
+        INSERT {
+            property var mPenThicknessModel: {
+                const iterable = [
+                    {
+                        iconPath: 'qrc:/ark/icons/stroke_thin',
+                        thickness: 0.5,
+                        displayName: 'Thinner',
+                    },
+                    {
+                        iconPath: 'qrc:/ark/icons/stroke_thin',
+                        thickness: 1,
+                        displayName: 'Thin',
+                    },
+                    {
+                        iconPath: 'qrc:/ark/icons/stroke_medium',
+                        thickness: 1.5,
+                        displayName: 'Medium Thin',
+                    },
+                    {
+                        iconPath: 'qrc:/ark/icons/stroke_medium',
+                        thickness: 2,
+                        displayName: 'Medium',
+                    },
+                    {
+                        iconPath: 'qrc:/ark/icons/stroke_medium',
+                        thickness: 2.5,
+                        displayName: 'Medium Thick',
+                    },
+                    {
+                        iconPath: 'qrc:/ark/icons/stroke_thick',
+                        thickness: 3,
+                        displayName: 'Thick',
+                    },
+                    {
+                        iconPath: 'qrc:/ark/icons/stroke_thick',
+                        thickness: 5,
+                        displayName: 'Thicker',
+                    },
+                    {
+                        iconPath: 'qrc:/ark/icons/stroke_thick',
+                        thickness: 8,
+                        displayName: 'Even Thicker',
+                    },
+                ];
+                iterable.isValidThickness = () => true;
+                iterable.nameForThickness = e => iterable.find(z => z.thickness === e)?.displayName ?? '';
+                iterable.iconForThickness = e => iterable.find(z => z.thickness === e)?.iconPath ?? '';
+                iterable.thicknessAt = e => iterable[e].thickness;
+                iterable.defaultThickness = () => iterable[1];
+                return iterable;
+            }
+        }
+    END TRAVERSE
+END AFFECT
+
+AFFECT /qt/qml/xofm/libs/toolbar/qml/WritingTool.qml
+    IMPORT common 1.0
+    TRAVERSE PenTool
+        REMOVE PenThicknessModel
+        REPLACE penThicknessSelected WITH {
+            signal penThicknessSelected(thickness : var)
+        }
+        TRAVERSE ArkControls.FoldoutGrid > Repeater[.model=thicknessModel] > ArkControls.FoldoutItem
+            REPLACE thickness WITH { required property var thickness }
+        END TRAVERSE
+    END TRAVERSE
+    REBUILD PenTool
+        LOCATE BEFORE ALL
+        REPLACE { thicknessModel } WITH STREAM /Values.mPenThicknessModel/
+    END REBUILD
+END AFFECT
+
+AFFECT /qt/qml/xofm/libs/toolbar/qml/EraserMenu.qml
+    IMPORT common 1.0
+    TRAVERSE PenTool
+        REMOVE PenThicknessModel
+        REPLACE eraserThicknessSelected WITH {
+            signal eraserThicknessSelected(thickness : var)
+        }
+        TRAVERSE ColumnLayout > ArkControls.FoldoutGrid > Repeater[.model=thicknessModel] > ArkControls.FoldoutItem
+            REPLACE thickness WITH { required property var thickness }
+        END TRAVERSE
+    END TRAVERSE
+    REBUILD PenTool
+        LOCATE BEFORE ALL
+        REPLACE { thicknessModel } WITH STREAM /Values.mPenThicknessModel/
+    END REBUILD
+END AFFECT
