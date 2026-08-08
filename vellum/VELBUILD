@@ -1,0 +1,32 @@
+maintainer="Florian Labarre <contact@florianlabarre.fr>"
+pkgname=more-stroke-sizes
+pkgver=0.1.0
+pkgrel=0
+upstream_author="flolbr"
+category="ui"
+pkgdesc="Add more pen thicknesses to the native reMarkable thickness menu"
+url="https://github.com/flolbr/remarkable-more-stroke-sizes"
+arch="noarch"
+license="MIT"
+depends="qt-resource-rebuilder>=17 !rm1 !rmpp !rmppm !rmppure remarkable-os>=3.27.1.0 remarkable-os<3.27.1.1"
+_commit="f402a6ca7300c295c3e3b32f7a3f271015e3baf7"
+readmeurl="https://raw.githubusercontent.com/$upstream_author/remarkable-more-stroke-sizes/$_commit/README.md"
+source="
+https://raw.githubusercontent.com/$upstream_author/remarkable-more-stroke-sizes/$_commit/patches/3.27.1.0/more-stroke-sizes.qmd
+https://raw.githubusercontent.com/$upstream_author/remarkable-more-stroke-sizes/$_commit/LICENSE
+"
+options="!check strip tracedeps"
+
+package() {
+	install -Dm644 "$srcdir"/more-stroke-sizes.qmd \
+		"$pkgdir"/home/root/xovi/exthome/qt-resource-rebuilder/more-stroke-sizes.qmd
+
+	install -Dm644 "$srcdir"/LICENSE \
+		"$pkgdir"/home/root/.vellum/licenses/$pkgname/LICENSE
+	echo "https://github.com/flolbr/remarkable-more-stroke-sizes" > \
+		"$pkgdir"/home/root/.vellum/licenses/$pkgname/SOURCES
+}
+sha512sums='69288756647a465d9e7488e97d749a418b1e00bec773c782222fe4af40459f13c1e71b0b2e079bd08ec8c2e0a251a1e5ffe1c7f79161f750487962411faeebee
+more-stroke-sizes.qmd
+aa58e8795624fd6fe7c5d8c362c33914853e488849b15b70c594fb1eddacbcb517bac66b74b0d0f6309c85fc969a60da9a68f74ac80926d15a7eed31d7df143b
+LICENSE'

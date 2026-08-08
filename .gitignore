@@ -8,5 +8,7 @@ SECRETS_LOCAL.md
 *.swu
 *.img
 *.ext4
+*.apk
+keys/
 *.log
 *.log.private
