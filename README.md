@@ -94,7 +94,7 @@ The tested package definition is available at [`vellum/VELBUILD`](vellum/VELBUIL
 It is constrained to reMarkable 2 on firmware `3.27.1.0` and is not yet part
 of the official Vellum package index.
 
-A locally built `more-stroke-sizes-0.1.0-r0.apk` passed installation, the
+A locally built `more-stroke-sizes-0.1.0-r1.apk` passed installation, the
 physical interaction matrix, removal, and reinstall testing. Development
 APKs and signing keys are intentionally not published in this repository.
 

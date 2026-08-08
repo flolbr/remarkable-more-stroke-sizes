@@ -3,13 +3,13 @@
 Date: 2026-08-08
 Hardware: reMarkable 2
 Firmware: 3.27.1.0
-Package: `more-stroke-sizes-0.1.0-r0.apk`
-APK SHA-256: `8af5d41662e0814a2738101a33f0a0a6534d68ad8f95c59ce01d48c311c19da3`
-QMD SHA-256: `352be992e4ca1a9d96c5c8686c4980c9596ae43748fb015e51225fcaaa3c0c04`
+Package: `more-stroke-sizes-0.1.0-r1.apk`
+APK SHA-256: `499aa50f3a65c1ad3c9350ea7df1ed320d6fffd390415ba13643cb676b1c6ac6`
+QMD SHA-256: `ad731ad0c846cf2fd7443754fa5947579583921b1028996d331d39b8694b3333`
 
 ## Build
 
-- PASS: source URLs were pinned to project commit `f402a6ca7300c295c3e3b32f7a3f271015e3baf7`.
+- PASS: source URLs were pinned to project commit `fdfbce835da118575b36af9c797e6f807a58794e`.
 - PASS: checksums were generated with Vellum's `update-checksums.sh`.
 - PASS: Vellum validation and `apkbuild-lint` completed with zero failures or warnings.
 - PASS: the official build script produced a signed noarch APK.
@@ -33,6 +33,9 @@ QMD SHA-256: `352be992e4ca1a9d96c5c8686c4980c9596ae43748fb015e51225fcaaa3c0c04`
 - PASS: page switching, notebook reopen, toolbar hide/show, and sleep/wake remained stable.
 - PASS: package removal restored the stock three-entry selector.
 - PASS: reinstall restored all nine entries and the drawing subset without freezing.
+- PASS: Vellum-installed English and French localized-label subsets.
+- PASS: standalone-QMD English, French, German, and Spanish localized-label
+  subsets before packaging.
 
 ## Removal behavior
 
