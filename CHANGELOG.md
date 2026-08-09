@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Add an exact 3.27.0.97 artifact with `HASH` and headless `CI-LOAD` evidence.
+- Record 3.27.0.97 as emulator-qualified only; native UI and physical hardware
+  remain untested.
+
 ## 0.1.0 — 2026-08-08
 
 - Extract the native thickness-menu behavior from rmHacks into a standalone QMD.

@@ -119,3 +119,37 @@ Result:
   validated commit `f4ff81505f22cf6689e7f63e3f8de896e4b8a36e`,
   completed the 3.27 canary in 2 minutes 25 seconds, and only then completed
   the 3.24 target. All three jobs passed.
+
+## 2026-08-09 — 3.27.0.97 emulator expansion
+
+Firmware: reMarkable 2 `3.27.0.97`
+Build ID: `20260428124824`
+
+Action:
+
+- Built and booted the exact codexctl image without touching the physical
+  tablet.
+- Ran XOVI and qt-resource-rebuilder v17 in the guest to enumerate the exact
+  QML resources and generate a private firmware hashtable.
+- Regenerated the 3.27 readable source with QMLDiff and ran the exact-build
+  guest check.
+
+Observation:
+
+- Headless xochitl enumerated all QML resources before failing at unavailable
+  SWTCON hardware initialization. A private preload delayed that one device
+  open long enough for QMLDiff's normal 60-second hashtable saver to finish.
+- QMLDiff reported no source compatibility errors. The resulting artifact's
+  hashed body is identical to 3.27.1.0; only the exact firmware guard differs.
+
+Result:
+
+- PASS: `HASH` for exact firmware 3.27.0.97.
+- PASS: local exact-build `CI-LOAD`, including build ID, artifact SHA-256, and
+  source-derived thickness checks.
+- NOT TESTED: `QEMU-UI` and physical `HW`.
+
+Interpretation:
+
+- 3.27.0.97 and 3.27.1.0 share the same readable source family.
+- The Vellum package remains constrained to physically tested 3.27.1.0.

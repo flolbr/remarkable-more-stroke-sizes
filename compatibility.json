@@ -17,6 +17,20 @@
       }
     },
     {
+      "firmware": "3.27.0.97",
+      "build_id": "20260428124824",
+      "hardware": "rm2",
+      "source": "src/3.27.0.97/more-stroke-sizes-readable.qmd",
+      "artifact": "patches/3.27.0.97/more-stroke-sizes.qmd",
+      "sha256": "169968131f2eb76fbdd1e26e03ce9458b6a1542cd60d14c53e52ec823d6663e4",
+      "evidence": {
+        "hash": true,
+        "ci_load": true,
+        "qemu_ui": false,
+        "hardware": false
+      }
+    },
+    {
       "firmware": "3.27.1.0",
       "build_id": "20260506100933",
       "hardware": "rm2",

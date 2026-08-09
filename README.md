@@ -7,19 +7,24 @@ toolbar.
 
 ## Compatibility
 
-Only these exact reMarkable 2 firmware builds have been physically tested:
+Exact reMarkable 2 artifacts and their current evidence levels:
 
-| Firmware | Thicknesses | Artifact |
-| --- | --- | --- |
-| 3.24.0.149 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8 | `patches/3.24.0.149/more-stroke-sizes.qmd` |
-| 3.27.1.0 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | `patches/3.27.1.0/more-stroke-sizes.qmd` |
+| Firmware | Thicknesses | HASH | CI-LOAD | QEMU-UI | HW | Artifact |
+| --- | --- | --- | --- | --- | --- | --- |
+| 3.24.0.149 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8 | yes | yes | no | yes | `patches/3.24.0.149/more-stroke-sizes.qmd` |
+| 3.27.0.97 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | yes | yes | no | no | `patches/3.27.0.97/more-stroke-sizes.qmd` |
+| 3.27.1.0 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | yes | yes | no | yes | `patches/3.27.1.0/more-stroke-sizes.qmd` |
 
-The QMD files have exact `VERSION` guards. Support for other hardware or
-firmware versions is not claimed.
+`3.27.0.97` is emulator-qualified only. Its exact hashtable was rebuilt from
+that firmware and the artifact passed exact-build headless QEMU checks, but
+the native UI and physical hardware have not been tested. The QMD files have
+exact `VERSION` guards; support for other hardware or firmware versions is
+not claimed.
 
 ## Requirements
 
-- reMarkable 2 on one of the exact builds above
+- reMarkable 2 on one of the exact builds above, subject to its documented
+  evidence level
 - [XOVI](https://github.com/asivery/rm-xovi-extensions)
 - `qt-resource-rebuilder` v17 or newer compatible version
 - A hashtable rebuilt on the installed firmware
@@ -61,9 +66,10 @@ menu.
 
 ## Testing
 
-Both builds passed physical testing of the native menu with Fineliner and
-Ballpoint, visible width changes, tool and page switching, notebook reopen,
-sleep/wake, XOVI restart, stability/navigation checks, and clean removal.
+The 3.24.0.149 and 3.27.1.0 builds passed physical testing of the native menu
+with Fineliner and Ballpoint, visible width changes, tool and page switching,
+notebook reopen, sleep/wake, XOVI restart, stability/navigation checks, and
+clean removal.
 The 3.27.1.0 build additionally passed a normal tablet reboot and reinstall
 test. See [`evidence/`](evidence/) for the exact summaries.
 
@@ -73,9 +79,9 @@ passed the full test matrix on 3.27.1.0.
 
 ## Labels and localization
 
-The 3.27.1.0 artifact appends the numeric thickness to every label and has
+The 3.27 artifacts append the numeric thickness to every label and have
 project-owned label tables for English, French, German, and Spanish. Those
-four languages were checked on a physical reMarkable 2 for non-blank labels,
+four languages were checked on physical firmware 3.27.1.0 for non-blank labels,
 menu usability, selection, and drawing. English is the fallback for other
 languages.
 

@@ -1,7 +1,7 @@
 # Current project state
 
 Date examined: 2026-08-09
-Commit examined: `f4ff81505f22cf6689e7f63e3f8de896e4b8a36e`
+Commit examined: `7b3417ebaac87fdbb1e13c12c11c4af05e05898a`
 Branch: `main`
 Initial working tree: clean and synchronized with `origin/main`
 
@@ -17,19 +17,21 @@ There are currently two source families:
 | Firmware | Thickness values | Labels | Generated QMD |
 | --- | --- | --- | --- |
 | 3.24.0.149 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8 | English, without numeric suffixes | `patches/3.24.0.149/more-stroke-sizes.qmd` |
+| 3.27.0.97 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | English, French, German, and Spanish, with numeric suffixes; English fallback | `patches/3.27.0.97/more-stroke-sizes.qmd` |
 | 3.27.1.0 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | English, French, German, and Spanish, with numeric suffixes; English fallback | `patches/3.27.1.0/more-stroke-sizes.qmd` |
 
 The 3.27 source deliberately uses the stock translation of `Thin` as its
 language marker. It keeps the project translation context separate to avoid a
 second translation pass. Thickness 100 is intentionally absent on 3.24 after
-a failed physical candidate and present on 3.27 after a complete physical
-pass.
+a failed physical candidate and present in the 3.27 source family after a
+complete physical pass on 3.27.1.0.
 
-## Evidence at reconnaissance
+## Current evidence
 
 | Firmware | HASH | CI-LOAD | QEMU-UI | HW |
 | --- | --- | --- | --- | --- |
 | 3.24.0.149 | passed | passed | not tested | passed |
+| 3.27.0.97 | passed | passed | not tested | not tested |
 | 3.27.1.0 | passed | passed | not tested | passed |
 
 The strongest current canary is reMarkable 2 firmware `3.27.1.0`, whose
@@ -39,8 +41,8 @@ localized QMD and Vellum r1 package passed the full physical matrix.
 
 - No compatibility manifest, project test scripts, or GitHub Actions workflow
   existed at reconnaissance.
-- Current codexctl lists both represented firmware versions for reMarkable 2,
-  as well as 3.25, 3.26, and the alternate 3.27.0.97 build.
+- Current codexctl lists all three represented firmware versions for
+  reMarkable 2, as well as 3.25 and 3.26.
 - `Eeems-Org/run-in-remarkable-action` v1.2 pins rM-docker commit
   `4b6a612941cc29adc7ca23c1da38e641655d2ed2` and accepts an explicit firmware
   version.
@@ -54,8 +56,8 @@ localized QMD and Vellum r1 package passed the full physical matrix.
 
 ## Known limitations and open questions
 
-- Exact physical compatibility is claimed only for the two represented
-  builds; emulator or CI results must not broaden hardware claims.
+- Exact physical compatibility is claimed only for 3.24.0.149 and 3.27.1.0;
+  emulator or CI results must not broaden hardware claims.
 - The committed generated QMDs cannot be reproducibly regenerated in public
   CI without proprietary firmware resources and exact private hashtables.
 - The public workflow uses a live headless QEMU guest; it does not apply the
@@ -78,11 +80,26 @@ adaptation is stored in `ci/rm-docker-3.27.patch` and does not modify firmware
 or project QMDs. CI boots the resulting `qemu-debug` image as a normal
 container rather than taking a first-boot snapshot inside BuildKit.
 
-No source family was collapsed: 3.27 still requires substantive source changes
-for its translation context, localization tables, numeric labels, and tested
-thickness 100 behavior. No represented version differs only by hashes.
+The 3.24 and 3.27 implementations remain separate source families. The two
+3.27 builds share one readable implementation; their generated files differ
+only by the exact `VERSION` guard because every QMD-relevant hash is identical.
 
 GitHub Actions run
 [`31304766640`](https://github.com/flolbr/remarkable-more-stroke-sizes/actions/runs/31304766640)
 passed repository validation, the 3.27.1.0 canary, and then 3.24.0.149 at
 commit `f4ff81505f22cf6689e7f63e3f8de896e4b8a36e`.
+
+## 3.27.0.97 emulator expansion
+
+The exact 3.27.0.97 image reported build ID `20260428124824`. XOVI and
+qt-resource-rebuilder v17 generated its hashtable inside the emulator while a
+headless-only preload delayed the unavailable SWTCON device initialization;
+the proprietary hashtable and extracted resources remain private.
+
+QMLDiff reported no compatibility errors for the existing 3.27 readable
+source. Regenerating against the exact hashtable produced the same hashed QMD
+body as 3.27.1.0 with only the required `VERSION 3.27.0.97` guard changed.
+Repository validation and the exact-build QEMU guest check passed. This adds
+`HASH` and `CI-LOAD` evidence only: `QEMU-UI` and physical hardware remain
+untested, and the Vellum package remains constrained to physically validated
+3.27.1.0.
