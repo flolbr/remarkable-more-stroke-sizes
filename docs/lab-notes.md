@@ -83,3 +83,36 @@ Interpretation:
 - The two versions remain separate source families. The 3.27 translation
   context, localization tables, numeric labels, and thickness 100 are
   substantive source differences, not hash-only changes.
+
+## 2026-08-09 — GitHub-hosted first-boot correction
+
+Action:
+
+- Ran the manifest-derived workflow on a clean GitHub-hosted Ubuntu runner.
+- Kept 3.27.1.0 as the canary and prevented the 3.24 matrix job from starting
+  when the canary infrastructure did not complete.
+
+Observation:
+
+- The repository validation job passed, but rM-docker's `qemu-base` target
+  spent the full 60-minute job timeout waiting for SSH inside a BuildKit
+  first-boot layer.
+- Serial-visible local reproduction showed that the emulator socket's direct
+  dependency on `dropbearkey.service` formed a systemd ordering cycle through
+  `sockets.target`. Systemd skipped that socket on a fresh image.
+
+Correction:
+
+- Removed the redundant socket-level key-service dependency. The per-client
+  Dropbear service still waits for key generation.
+- Changed the checker to build the pinned `qemu-debug` image, boot it as a
+  normal container, and validate the live exact-firmware guest. This avoids a
+  first-boot snapshot inside BuildKit and does not weaken `CI-LOAD` checks.
+
+Result:
+
+- PASS: revised local live-first-boot 3.27 canary completed in 79 seconds.
+- PASS: only after that canary, the revised 3.24 target completed in 118
+  seconds.
+- The public GitHub-hosted matrix is rerun from this corrected harness before
+  Phase 14 is closed.

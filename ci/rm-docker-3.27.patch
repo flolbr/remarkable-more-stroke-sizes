@@ -36,11 +36,9 @@ new file mode 100644
 index 0000000..3fc12d7
 --- /dev/null
 +++ b/dropbear-emulator.socket
-@@ -0,0 +1,8 @@
+@@ -0,0 +1,6 @@
 +[Unit]
 +Description=Emulator SSH socket
-+Wants=dropbearkey.service
-+After=dropbearkey.service
 +
 +[Socket]
 +ListenStream=22

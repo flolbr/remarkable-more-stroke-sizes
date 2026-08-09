@@ -13,7 +13,7 @@ expected_sha256=$4
 source_qmd=$5
 artifact_qmd=$6
 suffix=$(printf '%s' "$firmware" | tr '.' '-')
-image="rmstroke-qemu-base:$firmware"
+image="rmstroke-qemu-debug:$firmware"
 container="rmstroke-$suffix"
 
 cleanup() {
@@ -23,12 +23,12 @@ trap cleanup EXIT INT TERM
 
 docker build \
     --progress=plain \
-    --target qemu-base \
+    --target qemu-debug \
     --build-arg "fw_version=$firmware" \
     --tag "$image" \
     "$rm_docker_dir"
 
-docker run --detach --name "$container" "$image" >/dev/null
+docker run --detach --name "$container" "$image" run_vm -nographic >/dev/null
 
 ready=false
 attempt=0

@@ -58,8 +58,8 @@ localized QMD and Vellum r1 package passed the full physical matrix.
   builds; emulator or CI results must not broaden hardware claims.
 - The committed generated QMDs cannot be reproducibly regenerated in public
   CI without proprietary firmware resources and exact private hashtables.
-- It remains to prove the 3.27 canary in the current emulator harness before
-  interpreting results from additional firmware.
+- The public workflow uses a live headless QEMU guest; it does not apply the
+  QMD to xochitl or exercise the native display.
 - Other hardware, third-party-mod coexistence, and firmware versions not
   represented by exact artifacts remain out of scope until separately tested.
 
@@ -75,7 +75,8 @@ Current rM-docker required a documented emulator-only adaptation for these
 firmwares: shorter waits for absent emulated devices, a generic Dropbear
 socket independent of USB/Wi-Fi/encrypted home, and an exact codexctl pin. The
 adaptation is stored in `ci/rm-docker-3.27.patch` and does not modify firmware
-or project QMDs.
+or project QMDs. CI boots the resulting `qemu-debug` image as a normal
+container rather than taking a first-boot snapshot inside BuildKit.
 
 No source family was collapsed: 3.27 still requires substantive source changes
 for its translation context, localization tables, numeric labels, and tested
