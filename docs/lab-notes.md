@@ -114,5 +114,8 @@ Result:
 - PASS: revised local live-first-boot 3.27 canary completed in 79 seconds.
 - PASS: only after that canary, the revised 3.24 target completed in 118
   seconds.
-- The public GitHub-hosted matrix is rerun from this corrected harness before
-  Phase 14 is closed.
+- PASS: GitHub Actions run
+  [`31304766640`](https://github.com/flolbr/remarkable-more-stroke-sizes/actions/runs/31304766640)
+  validated commit `f4ff81505f22cf6689e7f63e3f8de896e4b8a36e`,
+  completed the 3.27 canary in 2 minutes 25 seconds, and only then completed
+  the 3.24 target. All three jobs passed.

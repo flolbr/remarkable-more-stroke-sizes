@@ -13,6 +13,9 @@ QMD SHA-256: `ad731ad0c846cf2fd7443754fa5947579583921b1028996d331d39b8694b3333`
 - PASS: exact-build QEMU guest reached SSH and reported the expected build ID.
 - PASS: the guest read and SHA-256 checked the committed QMD.
 - PASS: readable and generated QMD thickness values matched inside the guest.
+- PASS: GitHub Actions run
+  [`31304766640`](https://github.com/flolbr/remarkable-more-stroke-sizes/actions/runs/31304766640)
+  completed this target first as the required canary.
 - NOT TESTED: QMLDiff application to xochitl in the emulator.
 - NOT TESTED: native UI display or interaction (`QEMU-UI`).
 
