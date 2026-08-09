@@ -18,8 +18,8 @@ jobs:
       canary-matrix: ${{ steps.matrix.outputs.canary }}
       remaining-matrix: ${{ steps.matrix.outputs.remaining }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
         with:
           python-version: "3.12"
       - name: Validate sources, artifacts, and compatibility metadata
@@ -38,9 +38,9 @@ jobs:
     strategy:
       matrix: ${{ fromJSON(needs.validate.outputs.canary-matrix) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
       - name: Check out the pinned emulator harness
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           repository: timower/rM-docker
           ref: 4b6a612941cc29adc7ca23c1da38e641655d2ed2
@@ -70,9 +70,9 @@ jobs:
       max-parallel: 1
       matrix: ${{ fromJSON(needs.validate.outputs.remaining-matrix) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
       - name: Check out the pinned emulator harness
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           repository: timower/rM-docker
           ref: 4b6a612941cc29adc7ca23c1da38e641655d2ed2
