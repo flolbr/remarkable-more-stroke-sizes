@@ -18,6 +18,11 @@ QMD SHA-256: `169968131f2eb76fbdd1e26e03ce9458b6a1542cd60d14c53e52ec823d6663e4`
 - PASS: the QEMU guest reported the expected build ID, read and SHA-256
   checked the committed QMD, and matched its thickness values with the
   readable source.
+- PASS: authoritative GitHub Actions run
+  [`31308187236`](https://github.com/flolbr/remarkable-more-stroke-sizes/actions/runs/31308187236)
+  validated the repository, passed the 3.27.1.0 canary, and then passed both
+  3.24.0.149 and 3.27.0.97 at implementation commit
+  `c2d3c65d1abfa0f978fe8d4481ecf4b933bd5892`.
 - NOT TESTED: native UI display or interaction (`QEMU-UI`).
 - NOT TESTED: physical reMarkable hardware (`HW`).
 

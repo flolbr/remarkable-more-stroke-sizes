@@ -147,6 +147,10 @@ Result:
 - PASS: `HASH` for exact firmware 3.27.0.97.
 - PASS: local exact-build `CI-LOAD`, including build ID, artifact SHA-256, and
   source-derived thickness checks.
+- PASS: GitHub Actions run
+  [`31308187236`](https://github.com/flolbr/remarkable-more-stroke-sizes/actions/runs/31308187236)
+  validated the repository, passed the 3.27.1.0 canary, and then passed
+  3.24.0.149 and 3.27.0.97 sequentially.
 - NOT TESTED: `QEMU-UI` and physical `HW`.
 
 Interpretation:
