@@ -9,3 +9,5 @@
 - Add the locally validated Vellum package definition and package test summary.
 - Add physically tested English, French, German, and Spanish labels with the
   numeric thickness appended and English fallback for other languages.
+- Add manifest-driven source/artifact checks and exact-build rm2 QEMU
+  CI-LOAD coverage, with canary-first GitHub Actions orchestration.

@@ -1,0 +1,8 @@
+Date: 2026-08-09
+Hardware model emulated: rm2
+Firmware: 3.24.0.149
+Firmware build ID: 20251130114409
+rM-docker commit: 4b6a612941cc29adc7ca23c1da38e641655d2ed2
+codexctl commit: 590b11077887b3da11253d3bf8fb85aa42d35281
+QEMU guest architecture: arm
+Physical tablet used during emulator work: no

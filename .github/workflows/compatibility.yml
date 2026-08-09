@@ -1,0 +1,90 @@
+name: Compatibility
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate repository state
+    runs-on: ubuntu-latest
+    outputs:
+      canary-matrix: ${{ steps.matrix.outputs.canary }}
+      remaining-matrix: ${{ steps.matrix.outputs.remaining }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate sources, artifacts, and compatibility metadata
+        run: python3 scripts/check_project.py
+      - id: matrix
+        name: Derive the canary and post-canary matrices
+        run: |
+          echo "canary=$(python3 scripts/check_project.py --matrix --only-canary)" >> "$GITHUB_OUTPUT"
+          echo "remaining=$(python3 scripts/check_project.py --matrix --exclude-canary)" >> "$GITHUB_OUTPUT"
+
+  canary:
+    name: CI-LOAD rm2 ${{ matrix.firmware }} canary
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      matrix: ${{ fromJSON(needs.validate.outputs.canary-matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the pinned emulator harness
+        uses: actions/checkout@v4
+        with:
+          repository: timower/rM-docker
+          ref: 4b6a612941cc29adc7ca23c1da38e641655d2ed2
+          path: .rm-docker
+      - name: Apply the documented 3.27 harness adaptation
+        run: git -C .rm-docker apply ../ci/rm-docker-3.27.patch
+      - name: Load and validate the artifact in the exact-firmware QEMU guest
+        run: |
+          sh scripts/run_qemu_guest_check.sh \
+            .rm-docker \
+            "${{ matrix.firmware }}" \
+            "${{ matrix.build_id }}" \
+            "${{ matrix.sha256 }}" \
+            "${{ matrix.source }}" \
+            "${{ matrix.artifact }}"
+
+  matrix:
+    name: CI-LOAD rm2 ${{ matrix.firmware }}
+    needs:
+      - validate
+      - canary
+    if: ${{ needs.validate.outputs.remaining-matrix != '{"include":[]}' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix: ${{ fromJSON(needs.validate.outputs.remaining-matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the pinned emulator harness
+        uses: actions/checkout@v4
+        with:
+          repository: timower/rM-docker
+          ref: 4b6a612941cc29adc7ca23c1da38e641655d2ed2
+          path: .rm-docker
+      - name: Apply the documented 3.27 harness adaptation
+        run: git -C .rm-docker apply ../ci/rm-docker-3.27.patch
+      - name: Load and validate the artifact in the exact-firmware QEMU guest
+        run: |
+          sh scripts/run_qemu_guest_check.sh \
+            .rm-docker \
+            "${{ matrix.firmware }}" \
+            "${{ matrix.build_id }}" \
+            "${{ matrix.sha256 }}" \
+            "${{ matrix.source }}" \
+            "${{ matrix.artifact }}"

@@ -115,6 +115,26 @@ qmldiff hash-diffs /path/to/hashtab-3.27.1.0 /tmp/more-stroke-sizes.qmd
 `hash-diffs` modifies its input in place. Hashtable files are deliberately not
 published here.
 
+Repository checks derive the expected thickness values and labels directly
+from those readable QMD files:
+
+```sh
+python3 scripts/check_project.py
+```
+
+[`compatibility.json`](compatibility.json) records exact firmware build IDs,
+artifact hashes, and separate `HASH`, `CI-LOAD`, `QEMU-UI`, and `HW` evidence
+levels. The GitHub Actions matrix is generated from that manifest and always
+runs the strongest known-working firmware as its canary before other targets.
+
+For this project, `CI-LOAD` means that the byte-exact artifact was copied into
+an exact-build rM2 QEMU guest, read and hash-checked there, and compared with
+the thickness list derived from its readable source. It does not mean that the
+native UI was displayed; only an observed UI run may set `QEMU-UI`.
+
+See [`docs/current-state.md`](docs/current-state.md) for the reconciled source
+families, tooling pins, evidence, and current limitations.
+
 ## Provenance and license
 
 Derived from rmHacks' `more_stroke_sizes_hack.qmd` at upstream commit

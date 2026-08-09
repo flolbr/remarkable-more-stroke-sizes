@@ -1,0 +1,47 @@
+diff --git a/Dockerfile b/Dockerfile
+index 25f560b..56c38b6 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -65,3 +65,3 @@ RUN apt-get update && \
+ ARG fw_version
+-RUN uv pip install https://github.com/Jayy001/codexctl.git && \
++RUN uv pip install git+https://github.com/Jayy001/codexctl.git@590b11077887b3da11253d3bf8fb85aa42d35281 && \
+     .venv/bin/codexctl download $fw_version --hardware rm2 --out /tmp/firmware && \
+@@ -71,2 +71,3 @@ RUN uv pip install https://github.com/Jayy001/codexctl.git && \
+ ADD make_rootfs.sh /opt
++ADD dropbear-emulator.socket /opt
+ RUN ./make_rootfs.sh /opt/rootfs.ext4 $fw_version
+diff --git a/bin/run_vm b/bin/run_vm
+index 3c55961..66ba497 100755
+--- a/bin/run_vm
++++ b/bin/run_vm
+@@ -20,3 +20,3 @@ qemu-system-arm \
+     -drive if=sd,file=/opt/root/rootfs.qcow2,format=qcow2,index=2 \
+-    -append "console=ttymxc0 rootfstype=ext4 root=/dev/mmcblk2p2 rw rootwait init=/sbin/init" \
++    -append "console=ttymxc0 rootfstype=ext4 root=/dev/mmcblk2p2 rw rootwait init=/sbin/init systemd.default_device_timeout_sec=10s" \
+     -nic user,hostfwd=tcp::22-:22,hostfwd=tcp::8888-:8888 \
+diff --git a/make_rootfs.sh b/make_rootfs.sh
+index ce07212..51af93f 100755
+--- a/make_rootfs.sh
++++ b/make_rootfs.sh
+@@ -53 +53,6 @@ ln-s /dev/null /etc/systemd/system/remarkable-fail.service
++upload /opt/dropbear-emulator.socket /etc/systemd/system/dropbear-emulator.socket
++cp-a /usr/lib/systemd/system/dropbear@.service /etc/systemd/system/dropbear-emulator@.service
++mkdir-p /etc/systemd/system/sockets.target.wants
++ln-s ../dropbear-emulator.socket /etc/systemd/system/sockets.target.wants/dropbear-emulator.socket
++
+ GFS
+diff --git a/dropbear-emulator.socket b/dropbear-emulator.socket
+new file mode 100644
+index 0000000..3fc12d7
+--- /dev/null
++++ b/dropbear-emulator.socket
+@@ -0,0 +1,8 @@
++[Unit]
++Description=Emulator SSH socket
++Wants=dropbearkey.service
++After=dropbearkey.service
++
++[Socket]
++ListenStream=22
++Accept=yes
