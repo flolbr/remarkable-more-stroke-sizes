@@ -131,3 +131,9 @@ Both candidates passed repository validation and the exact-build live QEMU
 guest check. This establishes `HASH` and `CI-LOAD` only. Native UI display and
 physical hardware were not tested, and the Vellum package remains constrained
 to physically validated 3.27.1.0.
+
+GitHub Actions run
+[`31376738480`](https://github.com/flolbr/remarkable-more-stroke-sizes/actions/runs/31376738480)
+passed repository validation, the 3.27.1.0 canary, and then all four remaining
+targets sequentially, including 3.25.1.1 and 3.26.0.68, at implementation
+commit `f8a07333de9f8c9da72ccee457e41e1d9a4aafaa`.

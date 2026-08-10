@@ -17,6 +17,9 @@ QMD SHA-256: `428137c7fc5eb44d09f576b7289c2eb31a6bf07665eac2fbe09586d466417617`
 - PASS: repository source/artifact/manifest structural validation.
 - PASS: the exact-build QEMU guest reported the expected build ID, verified
   the artifact SHA-256, and matched its thicknesses with the readable source.
+- PASS: authoritative GitHub Actions run
+  [`31376738480`](https://github.com/flolbr/remarkable-more-stroke-sizes/actions/runs/31376738480)
+  passed the 3.27.1.0 canary before this exact target.
 - NOT TESTED: native UI display or interaction (`QEMU-UI`).
 - NOT TESTED: physical reMarkable hardware (`HW`).
 

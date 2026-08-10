@@ -186,10 +186,14 @@ Result:
 
 - PASS: `HASH` and local exact-build `CI-LOAD` for 3.25.1.1.
 - PASS: `HASH` and local exact-build `CI-LOAD` for 3.26.0.68.
+- PASS: GitHub Actions run
+  [`31376738480`](https://github.com/flolbr/remarkable-more-stroke-sizes/actions/runs/31376738480)
+  validated the repository, passed the 3.27.1.0 canary, and then passed
+  3.24.0.149, 3.25.1.1, 3.26.0.68, and 3.27.0.97 sequentially.
 - NOT TESTED: `QEMU-UI` and physical `HW` for either candidate.
 - The physical tablet was not accessed or modified.
 
 Next:
 
-- Run the manifest-derived GitHub Actions matrix, preserving 3.27.1.0 as the
-  canary before interpreting the candidate jobs.
+- Keep both new builds emulator-qualified until separately approved native UI
+  or physical testing is performed.
