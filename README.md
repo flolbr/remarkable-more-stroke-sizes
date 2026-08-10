@@ -12,12 +12,15 @@ Exact reMarkable 2 artifacts and their current evidence levels:
 | Firmware | Thicknesses | HASH | CI-LOAD | QEMU-UI | HW | Artifact |
 | --- | --- | --- | --- | --- | --- | --- |
 | 3.24.0.149 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8 | yes | yes | no | yes | `patches/3.24.0.149/more-stroke-sizes.qmd` |
+| 3.25.1.1 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | yes | yes | no | no | `patches/3.25.1.1/more-stroke-sizes.qmd` |
+| 3.26.0.68 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | yes | yes | no | no | `patches/3.26.0.68/more-stroke-sizes.qmd` |
 | 3.27.0.97 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | yes | yes | no | no | `patches/3.27.0.97/more-stroke-sizes.qmd` |
 | 3.27.1.0 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | yes | yes | no | yes | `patches/3.27.1.0/more-stroke-sizes.qmd` |
 
-`3.27.0.97` is emulator-qualified only. Its exact hashtable was rebuilt from
-that firmware and the artifact passed exact-build headless QEMU checks, but
-the native UI and physical hardware have not been tested. The QMD files have
+`3.25.1.1`, `3.26.0.68`, and `3.27.0.97` are emulator-qualified only. Their
+exact hashtables were rebuilt from the corresponding firmware and the
+artifacts passed exact-build headless QEMU checks, but the native UI and
+physical hardware have not been tested. The QMD files have
 exact `VERSION` guards; support for other hardware or firmware versions is
 not claimed.
 
@@ -79,7 +82,7 @@ passed the full test matrix on 3.27.1.0.
 
 ## Labels and localization
 
-The 3.27 artifacts append the numeric thickness to every label and have
+The 3.25 through 3.27 artifacts append the numeric thickness to every label and have
 project-owned label tables for English, French, German, and Spanish. Those
 four languages were checked on physical firmware 3.27.1.0 for non-blank labels,
 menu usability, selection, and drawing. English is the fallback for other

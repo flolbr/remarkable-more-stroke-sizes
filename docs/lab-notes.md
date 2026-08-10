@@ -157,3 +157,39 @@ Interpretation:
 
 - 3.27.0.97 and 3.27.1.0 share the same readable source family.
 - The Vellum package remains constrained to physically tested 3.27.1.0.
+
+## 2026-08-10 — 3.25.1.1 and 3.26.0.68 emulator expansion
+
+Firmware canary: reMarkable 2 `3.27.1.0`
+Candidates: reMarkable 2 `3.25.1.1` and `3.26.0.68`
+Build IDs: `20260210094933` and `20260310084634`
+
+Action:
+
+- Ran the unchanged 3.27.1.0 live QEMU guest check first; it passed.
+- Used the pinned codexctl downloader through rM-docker to fetch and extract
+  one exact available build from each untested firmware family.
+- Booted candidates sequentially in the persistent `rmstroke` tmux session.
+- Ran XOVI and qt-resource-rebuilder v17 against each exact image and retained
+  the proprietary hashtables only in the private work area.
+- Regenerated candidates from the current localized readable source and ran
+  repository validation plus exact-build live guest checks.
+
+Observation:
+
+- 3.25 enumerated 2,681 resources; 3.26 enumerated 2,703 resources.
+- Both historical readable source families hashed without a QMLDiff error.
+- Every QMD-relevant resource hash matches the existing targets. Generated
+  artifacts differ from 3.27.1.0 only by the exact firmware guard.
+
+Result:
+
+- PASS: `HASH` and local exact-build `CI-LOAD` for 3.25.1.1.
+- PASS: `HASH` and local exact-build `CI-LOAD` for 3.26.0.68.
+- NOT TESTED: `QEMU-UI` and physical `HW` for either candidate.
+- The physical tablet was not accessed or modified.
+
+Next:
+
+- Run the manifest-derived GitHub Actions matrix, preserving 3.27.1.0 as the
+  canary before interpreting the candidate jobs.

@@ -5,6 +5,9 @@
 - Add an exact 3.27.0.97 artifact with `HASH` and headless `CI-LOAD` evidence.
 - Record 3.27.0.97 as emulator-qualified only; native UI and physical hardware
   remain untested.
+- Add exact 3.25.1.1 and 3.26.0.68 artifacts with private exact-firmware
+  hashtable regeneration and headless `CI-LOAD` evidence.
+- Keep `QEMU-UI` and physical hardware evidence false for both new targets.
 
 ## 0.1.0 — 2026-08-08
 

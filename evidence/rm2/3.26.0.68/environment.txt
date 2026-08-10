@@ -1,0 +1,11 @@
+Date: 2026-08-10
+Hardware model emulated: rm2
+Firmware: 3.26.0.68
+Firmware build ID: 20260310084634
+rM-docker commit: 4b6a612941cc29adc7ca23c1da38e641655d2ed2
+codexctl commit: 590b11077887b3da11253d3bf8fb85aa42d35281
+QEMU guest architecture: arm
+QMLDiff commit: 25681c3cc7addb93fdbb41ceac1f1bdce8b2625d
+rm-xovi-extensions commit: 7874154dba6793cc68a15fae0fb9dd272c4ed20a
+qt-resource-rebuilder version: 17
+Physical tablet used during emulator work: no

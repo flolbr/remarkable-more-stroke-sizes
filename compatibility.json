@@ -17,6 +17,34 @@
       }
     },
     {
+      "firmware": "3.25.1.1",
+      "build_id": "20260210094933",
+      "hardware": "rm2",
+      "source": "src/3.25.1.1/more-stroke-sizes-readable.qmd",
+      "artifact": "patches/3.25.1.1/more-stroke-sizes.qmd",
+      "sha256": "91a81071dec748ccb2ec8e2dea929683d1fabe8e224a0a74056c383f5cc54ab1",
+      "evidence": {
+        "hash": true,
+        "ci_load": true,
+        "qemu_ui": false,
+        "hardware": false
+      }
+    },
+    {
+      "firmware": "3.26.0.68",
+      "build_id": "20260310084634",
+      "hardware": "rm2",
+      "source": "src/3.26.0.68/more-stroke-sizes-readable.qmd",
+      "artifact": "patches/3.26.0.68/more-stroke-sizes.qmd",
+      "sha256": "428137c7fc5eb44d09f576b7289c2eb31a6bf07665eac2fbe09586d466417617",
+      "evidence": {
+        "hash": true,
+        "ci_load": true,
+        "qemu_ui": false,
+        "hardware": false
+      }
+    },
+    {
       "firmware": "3.27.0.97",
       "build_id": "20260428124824",
       "hardware": "rm2",

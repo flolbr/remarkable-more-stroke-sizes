@@ -1,7 +1,7 @@
 # Current project state
 
-Date examined: 2026-08-09
-Commit examined: `7b3417ebaac87fdbb1e13c12c11c4af05e05898a`
+Date examined: 2026-08-10
+Commit examined: `fa48052`
 Branch: `main`
 Initial working tree: clean and synchronized with `origin/main`
 
@@ -17,6 +17,8 @@ There are currently two source families:
 | Firmware | Thickness values | Labels | Generated QMD |
 | --- | --- | --- | --- |
 | 3.24.0.149 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8 | English, without numeric suffixes | `patches/3.24.0.149/more-stroke-sizes.qmd` |
+| 3.25.1.1 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | English, French, German, and Spanish, with numeric suffixes; English fallback | `patches/3.25.1.1/more-stroke-sizes.qmd` |
+| 3.26.0.68 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | English, French, German, and Spanish, with numeric suffixes; English fallback | `patches/3.26.0.68/more-stroke-sizes.qmd` |
 | 3.27.0.97 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | English, French, German, and Spanish, with numeric suffixes; English fallback | `patches/3.27.0.97/more-stroke-sizes.qmd` |
 | 3.27.1.0 | 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 100 | English, French, German, and Spanish, with numeric suffixes; English fallback | `patches/3.27.1.0/more-stroke-sizes.qmd` |
 
@@ -31,6 +33,8 @@ complete physical pass on 3.27.1.0.
 | Firmware | HASH | CI-LOAD | QEMU-UI | HW |
 | --- | --- | --- | --- | --- |
 | 3.24.0.149 | passed | passed | not tested | passed |
+| 3.25.1.1 | passed | passed | not tested | not tested |
+| 3.26.0.68 | passed | passed | not tested | not tested |
 | 3.27.0.97 | passed | passed | not tested | not tested |
 | 3.27.1.0 | passed | passed | not tested | passed |
 
@@ -109,3 +113,21 @@ GitHub Actions run
 passed repository validation, the 3.27.1.0 canary, and then both remaining
 targets in sequence, including exact-build 3.27.0.97, at implementation commit
 `c2d3c65d1abfa0f978fe8d4481ecf4b933bd5892`.
+
+## 3.25 and 3.26 emulator expansion
+
+The pinned codexctl downloader selected exact rM2 builds `3.25.1.1`
+(`20260210094933`) and `3.26.0.68` (`20260310084634`). The unchanged
+3.27.1.0 canary passed before either candidate was interpreted.
+
+XOVI and qt-resource-rebuilder v17 enumerated each exact image and wrote a
+private firmware-specific hashtable. Both the 3.24 and localized 3.27 readable
+sources hashed without compatibility errors; every QMD-relevant identifier is
+identical across the five represented builds. The new artifacts use the
+current localized source family and differ from 3.27.1.0 only in their exact
+`VERSION` guards.
+
+Both candidates passed repository validation and the exact-build live QEMU
+guest check. This establishes `HASH` and `CI-LOAD` only. Native UI display and
+physical hardware were not tested, and the Vellum package remains constrained
+to physically validated 3.27.1.0.
